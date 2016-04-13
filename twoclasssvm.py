@@ -24,18 +24,18 @@ for line in f:
     complete_csv.write(line)
 complete_csv.close()
 
-def construct_line( label, line ):
+def construct_line(label, line):
     new_line = []
-    if float( label ) == 0.0:
+    if float(label) == 0.0:
         label = "0"
-    new_line.append( label )
+    new_line.append(label)
 
-    for i, item in enumerate( line ):
-        if item == '' or float( item ) == 0.0:
-            continue
-        new_item = "%s:%s" % ( i + 1, item )
-        new_line.append( new_item )
-    new_line = " ".join( new_line )
+    for i, item in enumerate(line):
+        if item == '' or float(item) == 0.0:
+            item = -1.0
+        new_item = "%s:%s" % (i + 1, item)
+        new_line.append(new_item)
+    new_line = " ".join(new_line)
     new_line += "\n"
     return new_line
 
@@ -88,9 +88,9 @@ for i in p_labels:
     else:
         list.append("absent")
 
-#print list
 
-result = open("results.csv","wb")
+result = open("result.csv","wb")
 wr = csv.writer(result, dialect='excel', delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+
 for data in list:
-    wr.writerow(data)
+    result.write(data+"\n")
